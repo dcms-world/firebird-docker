@@ -1,5 +1,23 @@
 # Docker Firebird Server
 
+#### Firebirdserver Versions:
+
+2.5.6
+
+2.5.7
+
+2.5.8
+
+3.0.0
+
+3.0.3
+
+4.0.0 Alpha
+
+## Example - run a Firebird 3.0.3 Server:
+
+ docker run -d -e SYSDBAPASS=somepass -v C:\GMS\firebird-docker\testdb:/db -p 3303:3050 --rm --name firebird3.0.3 dcms/firebird-docker:3.0.3
+
 ## Environment Variables
 ### SYSDBAPASS
 Default password is "masterkey"
@@ -22,3 +40,9 @@ Example:
 
  -p 3051:3050
  
+## Docker-compose
+There is a docker-compose.yml file where you can start more Firebirdservers on different Ports for developing
+
+
+## WARNING 
+### DO NOT USE THIS FOR PRODUCTION - ITS ONLY FOR DEVELOPMENT !!!

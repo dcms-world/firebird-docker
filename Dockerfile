@@ -1,6 +1,7 @@
 FROM debian:9.4-slim
 
 LABEL maintainer="Hans Zehner <hans[at]dcms.at>"
+LABEL firebirdversion="2.5.6"
 
 ARG FBDOWNLOAD=https://sourceforge.net/projects/firebird/files/firebird-linux-amd64/2.5.6-Release/FirebirdCS-2.5.6.27020-0.amd64.tar.gz
 ARG SYSDBAPASSWORD=masterkey

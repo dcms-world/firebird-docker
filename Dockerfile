@@ -1,7 +1,7 @@
 FROM debian:9.4-slim
 
 LABEL maintainer="Hans Zehner <hans[at]dcms.at>"
-LABEL firebirdversion="2.5.8 CS"
+LABEL firebirdversion="2.5.8"
 
 ARG FBDOWNLOAD=https://github.com/FirebirdSQL/firebird/releases/download/R2_5_8/FirebirdCS-2.5.8.27089-0.amd64.tar.gz
 ARG SYSDBAPASSWORD=masterkey

@@ -42,7 +42,7 @@ services:
       file: base.yml
       service: base
     volumes:
-      - './firebird30.conf:/opt/firebird/firebird.conf'
+      - './firebird3.conf:/opt/firebird/firebird.conf'
       
   fb303:
     image: 'dcms/firebird-docker:3.0.3'
@@ -53,7 +53,7 @@ services:
       file: base.yml
       service: base
     volumes:
-      - './firebird30.conf:/opt/firebird/firebird.conf'
+      - './firebird3.conf:/opt/firebird/firebird.conf'
       
   fb400:
     image: 'dcms/firebird-docker:4.0.0Alpha'

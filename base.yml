@@ -5,4 +5,4 @@ services:
     environment:
       - 'SYSDBAPASS=somepass'
     volumes:
-      - '/home/hans/fbtest:/db' 
+      - './db:/db' 

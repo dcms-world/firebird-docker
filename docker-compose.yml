@@ -5,6 +5,7 @@ services:
     restart: always
     ports:
       - '3256:3050'
+      - '32560:3051'
     extends:
       file: base.yml
       service: base
@@ -16,6 +17,7 @@ services:
     restart: always
     ports:
       - '3257:3050'
+      - '32570:3051'
     extends:
       file: base.yml
       service: base
@@ -27,6 +29,7 @@ services:
     restart: always
     ports:
       - '3258:3050'
+      - '32580:3051'
     extends:
      file: base.yml
      service: base
@@ -38,6 +41,7 @@ services:
     restart: always
     ports:
       - '3300:3050'
+      - '33000:3051'
     extends:
       file: base.yml
       service: base
@@ -49,6 +53,7 @@ services:
     restart: always
     ports:
       - '3303:3050'
+      - '33030:3051'
     extends:
       file: base.yml
       service: base
@@ -60,6 +65,7 @@ services:
     restart: always
     ports:
       - '3400:3050'
+      - '34000:3051'
     extends:
       file: base.yml
       service: base

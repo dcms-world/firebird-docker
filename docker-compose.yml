@@ -2,48 +2,64 @@ version: '2'
 services:
   fb256:
     image: 'dcms/firebird-docker:2.5.6'
+    restart: always
     ports:
-     - '3256:3050'
+      - '3256:3050'
     extends:
-     file: base.yml
-     service: base
-
+      file: base.yml
+      service: base
+    volumes:
+      - './firebird25.conf:/opt/firebird/firebird.conf'
+      
   fb257:
     image: 'dcms/firebird-docker:2.5.7'
+    restart: always
     ports:
-     - '3257:3050'
+      - '3257:3050'
     extends:
-     file: base.yml
-     service: base
-
+      file: base.yml
+      service: base
+    volumes:
+      - './firebird25.conf:/opt/firebird/firebird.conf'
+      
   fb258:
     image: 'dcms/firebird-docker:2.5.8'
+    restart: always
     ports:
-     - '3258:3050'
+      - '3258:3050'
     extends:
      file: base.yml
      service: base
-
+    volumes:
+      - './firebird25.conf:/opt/firebird/firebird.conf'
+      
   fb300:
     image: 'dcms/firebird-docker:3.0.0'
+    restart: always
     ports:
-     - '3300:3050'
+      - '3300:3050'
     extends:
-     file: base.yml
-     service: base
-
+      file: base.yml
+      service: base
+    volumes:
+      - './firebird30.conf:/opt/firebird/firebird.conf'
+      
   fb303:
     image: 'dcms/firebird-docker:3.0.3'
+    restart: always
     ports:
-     - '3303:3050'
+      - '3303:3050'
     extends:
-     file: base.yml
-     service: base
-
+      file: base.yml
+      service: base
+    volumes:
+      - './firebird30.conf:/opt/firebird/firebird.conf'
+      
   fb400:
     image: 'dcms/firebird-docker:4.0.0Alpha'
+    restart: always
     ports:
-     - '3400:3050'
+      - '3400:3050'
     extends:
-     file: base.yml
-     service: base
+      file: base.yml
+      service: base

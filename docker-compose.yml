@@ -35,6 +35,18 @@ services:
      service: base
     volumes:
       - './firebird25.conf:/opt/firebird/firebird.conf'
+
+  fb259:
+    image: 'dcms/firebird-docker:2.5.9'
+    restart: always
+    ports:
+      - '3259:3050'
+      - '32590:3051'
+    extends:
+     file: base.yml
+     service: base
+    volumes:
+      - './firebird25.conf:/opt/firebird/firebird.conf'
       
   fb300:
     image: 'dcms/firebird-docker:3.0.0'

@@ -1,0 +1,96 @@
+version: '2'
+services:
+  fb256:
+    image: 'dcms/firebird-docker:2.5.6'
+    restart: always
+    ports:
+      - '3256:3050'
+      - '32560:3051'
+    extends:
+      file: base.yml
+      service: base
+    volumes:
+      - './firebird25.conf:/opt/firebird/firebird.conf'
+      
+  fb257:
+    image: 'dcms/firebird-docker:2.5.7'
+    restart: always
+    ports:
+      - '3257:3050'
+      - '32570:3051'
+    extends:
+      file: base.yml
+      service: base
+    volumes:
+      - './firebird25.conf:/opt/firebird/firebird.conf'
+      
+  fb258:
+    image: 'dcms/firebird-docker:2.5.8'
+    restart: always
+    ports:
+      - '3258:3050'
+      - '32580:3051'
+    extends:
+     file: base.yml
+     service: base
+    volumes:
+      - './firebird25.conf:/opt/firebird/firebird.conf'
+
+  fb259:
+    image: 'dcms/firebird-docker:2.5.9'
+    restart: always
+    ports:
+      - '3259:3050'
+      - '32590:3051'
+    extends:
+     file: base.yml
+     service: base
+    volumes:
+      - './firebird25.conf:/opt/firebird/firebird.conf'
+      
+  fb300:
+    image: 'dcms/firebird-docker:3.0.0'
+    restart: always
+    ports:
+      - '3300:3050'
+      - '33000:3051'
+    extends:
+      file: base.yml
+      service: base
+    volumes:
+      - './firebird3.conf:/opt/firebird/firebird.conf'
+      
+  fb303:
+    image: 'dcms/firebird-docker:3.0.3'
+    restart: always
+    ports:
+      - '3303:3050'
+      - '33030:3051'
+    extends:
+      file: base.yml
+      service: base
+    volumes:
+      - './firebird3.conf:/opt/firebird/firebird.conf'
+
+  fb304:
+    image: 'dcms/firebird-docker:3.0.4'
+    restart: always
+    ports:
+      - '3304:3050'
+      - '33040:3051'
+    extends:
+      file: base.yml
+      service: base
+    volumes:
+      - './firebird3.conf:/opt/firebird/firebird.conf'
+      
+  fb400beta1:
+    image: 'dcms/firebird-docker:4.0.0Beta1'
+    restart: always
+    ports:
+      - '3400:3050'
+      - '34000:3051'
+    extends:
+      file: base.yml
+      service: base
+

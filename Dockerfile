@@ -1,9 +1,9 @@
 FROM debian:9.4-slim
 
 LABEL maintainer="Hans Zehner <hans[at]dcms.at>"
-LABEL firebirdversion="4.0.0 Alpha"
+LABEL firebirdversion="4.0 Beta 1"
 
-ARG FBDOWNLOAD=http://web.firebirdsql.org/downloads/prerelease/v40alpha1/Firebird-4.0.0.716-Alpha1.amd64.tar.gz
+ARG FBDOWNLOAD=web.firebirdsql.org/downloads/prerelease/v40beta1/Firebird-4.0.0.1436-Beta1.amd64.tar.gz
 ARG SYSDBAPASSWORD=masterkey
 ENV SYSDBAPASS=${SYSDBAPASSWORD}
 

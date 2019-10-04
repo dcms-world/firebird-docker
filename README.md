@@ -14,6 +14,8 @@
 
 3.0.3
 
+3.0.4
+
 4.0.0 Alpha
 
 ## Example - run a Firebird 3.0.3 Server:

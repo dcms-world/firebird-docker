@@ -16,11 +16,11 @@
 
 3.0.4
 
-4.0.0 Alpha
+4.0.0 Beta 1
 
-## Example - run a Firebird 3.0.3 Server:
+## Example - run a Firebird 3.0.4 Server:
 
- docker run -d -e SYSDBAPASS=somepass -v C:\GMS\firebird-docker\testdb:/db -p 3303:3050 --rm --name firebird3.0.3 dcms/firebird-docker:3.0.3
+ docker run --rm -d -e SYSDBAPASS=somegoodpass -v /docker/firebird-docker/testdb:/db -p 3050:3050 --rm --name firebird3.0.4 dcms/firebird-docker:3.0.4
 
 ## Environment Variables
 ### SYSDBAPASS

@@ -108,8 +108,8 @@ services:
     volumes:
       - './firebird3.conf:/opt/firebird/firebird.conf'
 
-  fb400beta2:
-    image: 'dcms/firebird-docker:4.0.0Beta2'
+  fb400beta1:
+    image: 'dcms/firebird-docker:4.0.0Beta1'
     restart: always
     ports:
       - '3400:3050'

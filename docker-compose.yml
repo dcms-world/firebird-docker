@@ -1,0 +1,15 @@
+version: '2'
+services:
+  firebird:
+    image: 'dcms/firebird-docker:latest'
+    restart: always
+    ports:
+      - '3050:3050'
+      - '3051:3051'
+    extends:
+      file: base.yml
+      service: base
+    volumes:
+      - './firebird3.conf:/opt/firebird/firebird.conf'
+
+

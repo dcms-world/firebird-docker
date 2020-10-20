@@ -84,7 +84,7 @@ services:
     volumes:
       - './firebird3.conf:/opt/firebird/firebird.conf'
       
-    fb305:
+  fb305:
     image: 'dcms/firebird-docker:3.0.5'
     restart: always
     ports:

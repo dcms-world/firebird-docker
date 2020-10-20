@@ -31,14 +31,17 @@ RUN apt-get update && \
     mkdir /db && \
     chmod +x /startup.sh && \
     echo "DatabaseAccess = Full" >> /opt/firebird/firebird.conf && \ 
-    echo "ServerMode = SuperClassic" >>/opt/firebird/firebird.conf && \ 
+    echo "ServerMode = Super" >>/opt/firebird/firebird.conf && \ 
     echo "WireCrypt = Enabled" >>/opt/firebird/firebird.conf && \ 
     echo "AuthServer = Legacy_Auth, Srp, Win_Sspi" >> /opt/firebird/firebird.conf && \ 
-    echo "UserManager = Legacy_UserManager, Srp" >>/opt/firebird/firebird.conf
+    echo "UserManager = Legacy_UserManager, Srp" >>/opt/firebird/firebird.conf && \
+    echo "RemoteServicePort = 3050" >>/opt/firebird/firebird.conf && \
+    echo "RemoteAuxPort = 3051"  >>/opt/firebird/firebird.conf
 
 
 VOLUME /db
 
 EXPOSE 3050/tcp
+EXPOSE 3051/tcp
 
 CMD [ "/startup.sh" ]

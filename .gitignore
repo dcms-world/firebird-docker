@@ -1,1 +1,2 @@
-testdb/*.fdb
+/testdb/*.fdb
+!/testdb

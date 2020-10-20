@@ -5,7 +5,12 @@ LABEL firebirdversion="3.0.6"
 
 ARG FBDOWNLOAD=https://github.com/FirebirdSQL/firebird/releases/download/R3_0_6/Firebird-3.0.6.33328-0.amd64.tar.gz
 ARG SYSDBAPASSWORD=masterkey
+ARG FBPORT=3050
+ARG AUXPORT=3051
+
 ENV SYSDBAPASS=${SYSDBAPASSWORD}
+ENV FIREBIRD_PORT=${FBPORT}
+ENV REMOTE_AUX_PORT=${AUXPORT}
 
 COPY startup.sh /startup.sh
 
@@ -30,18 +35,14 @@ RUN apt-get update && \
     apt-get autoremove -y && \
     mkdir /db && \
     chmod +x /startup.sh && \
-    echo "DatabaseAccess = Full" >> /opt/firebird/firebird.conf && \ 
-    echo "ServerMode = Super" >>/opt/firebird/firebird.conf && \ 
-    echo "WireCrypt = Enabled" >>/opt/firebird/firebird.conf && \ 
-    echo "AuthServer = Legacy_Auth, Srp, Win_Sspi" >> /opt/firebird/firebird.conf && \ 
-    echo "UserManager = Legacy_UserManager, Srp" >>/opt/firebird/firebird.conf && \
-    echo "RemoteServicePort = 3050" >>/opt/firebird/firebird.conf && \
-    echo "RemoteAuxPort = 3051"  >>/opt/firebird/firebird.conf
+    echo "ServerMode = Super" > /opt/firebird/firebird.conf && \ 
+    echo "WireCrypt = Disabled" >> /opt/firebird/firebird.conf && \ 
+    echo "AuthServer = Legacy_Auth" >> /opt/firebird/firebird.conf && \ 
+    echo "AuthClient = Legacy_Auth" >> /opt/firebird/firebird.conf && \ 
+    echo "UserManager = Legacy_UserManager" >> /opt/firebird/firebird.conf
 
 
 VOLUME /db
 
-EXPOSE 3050/tcp
-EXPOSE 3051/tcp
 
 CMD [ "/startup.sh" ]

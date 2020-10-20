@@ -20,7 +20,7 @@
 
 3.0.6
 
-4.0.0 Beta 1
+4.0.0 Beta 2
 
 ## Example - run a Firebird 3.0.6 Server:
 

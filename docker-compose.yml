@@ -1,13 +1,14 @@
 version: '2'
 services:
   firebird:
-    image: 'dcms/firebird-docker:latest'
+    image: 'dcms/firebird-docker:3.0.6_test'
     restart: always
     ports:
       - '3050:3050'
       - '3051:3051'
-    extends:
-      file: base.yml
-      service: base
+    environment:
+      - 'SYSDBAPASS=masterkey'
+      - 'FIREBIRD_PORT=3050'
+      - 'REMOTE_AUX_PORT=3051'
     volumes:
-      - './firebird3.conf:/opt/firebird/firebird.conf'
+      - '/kunden/GMSTest:/db'

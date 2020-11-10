@@ -2,29 +2,15 @@
 
 #### Firebirdserver Versions:
 
-2.5.6
+2.5.6, 2.5.7, 2.5.8, 2.5.9
 
-2.5.7
-
-2.5.8
-
-2.5.9
-
-3.0.0
-
-3.0.3
-
-3.0.4
-
-3.0.5
-
-3.0.6
+3.0.0, 3.0.3, 3.0.4, 3.0.5, 3.0.6, 3.0.7 (latest)
 
 4.0.0 Beta 2
 
-## Example - run a Firebird 3.0.6 Server:
+## Example - run a Firebird 3.0.7 Server:
 
- docker run --rm -d -e SYSDBAPASS=somegoodpass -v /docker/firebird-docker/testdb:/db -p 3050:3050 --rm --name firebird3.0.6 dcms/firebird-docker:3.0.6
+ docker run --rm -d -e SYSDBAPASS=somegoodpass -v /docker/firebird-docker/testdb:/db -p 3050:3050 --rm --name firebird3.0.7 dcms/firebird-docker:3.0.7
 
 ## Environment Variables
 ### SYSDBAPASS

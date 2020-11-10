@@ -1,4 +1,4 @@
-/testdb/*.fdb
+/testdb/*
 !/testdb
 firebird*.conf
 docker-compose.yml

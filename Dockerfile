@@ -1,11 +1,16 @@
-FROM debian:9.4-slim
+FROM debian:9.13-slim
 
 LABEL maintainer="Hans Zehner <hans[at]dcms.at>"
 LABEL firebirdversion="2.5.9 CS"
 
 ARG FBDOWNLOAD=https://github.com/FirebirdSQL/firebird/releases/download/R2_5_9/FirebirdCS-2.5.9.27139-0.amd64.tar.gz
 ARG SYSDBAPASSWORD=masterkey
+ARG FBPORT=3050
+ARG AUXPORT=3051
+
 ENV SYSDBAPASS=${SYSDBAPASSWORD}
+ENV FIREBIRD_PORT=${FBPORT}
+ENV REMOTE_AUX_PORT=${AUXPORT}
 
 COPY startup.sh /startup.sh
 
@@ -27,8 +32,8 @@ RUN apt-get update && \
     mkdir /db && \
     chmod +x /startup.sh
 
-VOLUME /db
+RUN echo "### Configuration added by startup.sh ###" > /opt/firebird/firebird.conf
 
-EXPOSE 3050/tcp
+VOLUME /db
 
 CMD [ "/startup.sh" ]

@@ -5,4 +5,4 @@
 echo "RemoteServicePort = $FIREBIRD_PORT" >> /opt/firebird/firebird.conf 
 echo "RemoteAuxPort = $REMOTE_AUX_PORT" >> /opt/firebird/firebird.conf
 
-/opt/firebird/bin/fbguard
+/opt/firebird/bin/firebird

@@ -7,14 +7,24 @@ ARG FBDOWNLOAD=https://github.com/FirebirdSQL/firebird/releases/download/R3_0_7/
 ARG SYSDBAPASSWORD=masterkey
 ARG FBPORT=3050
 ARG AUXPORT=3051
-ARG TMPBLOCKSIZE=1M
-ARG TMPCACHELIMIT=64M
+ARG TMPBLKSZE=1M
+ARG TMPCHLIMIT=64M
+ARG SERVERMD=Super
+ARG WIRECR=Disabled
+ARG AUTHSRV=Legacy_Auth
+ARG AUTHCL=Legacy_Auth
+ARG USERMGR=Legacy_UserManager
 
 ENV SYSDBAPASS=${SYSDBAPASSWORD}
 ENV FIREBIRD_PORT=${FBPORT}
 ENV REMOTE_AUX_PORT=${AUXPORT}
-ENV TMPBLOCKSIZE=1M
-ENV TMPCACHELIMIT=64M
+ENV TMPBLOCKSIZE=${TMPBLKSZE}
+ENV TMPCACHELIMIT=${TMPCHLIMIT}
+ENV SERVERMODE=${SERVERMD}
+ENV WIRECRYPT=${WIRECR}
+ENV AUTHSERVER=${AUTHSRV}
+ENV AUTHCLIENT=${AUTHCL}
+ENV USERMANAGER=${USERMGR}
 
 COPY startup.sh /startup.sh
 
@@ -39,12 +49,6 @@ RUN apt-get update && \
     apt-get autoremove -y && \
     mkdir /db && \
     chmod +x /startup.sh
-
-RUN echo "ServerMode = Super" > /opt/firebird/firebird.conf && \ 
-    echo "WireCrypt = Disabled" >> /opt/firebird/firebird.conf && \ 
-    echo "AuthServer = Legacy_Auth" >> /opt/firebird/firebird.conf && \ 
-    echo "AuthClient = Legacy_Auth" >> /opt/firebird/firebird.conf && \ 
-    echo "UserManager = Legacy_UserManager" >> /opt/firebird/firebird.conf
 
 VOLUME /db
 

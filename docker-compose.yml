@@ -12,3 +12,5 @@ services:
       - 'REMOTE_AUX_PORT=3051'
     volumes:
       - '/kunden/GMSTest:/db'
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'

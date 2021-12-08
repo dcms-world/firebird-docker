@@ -1,9 +1,9 @@
-FROM debian:9.4-slim
+FROM debian:10.11-slim
 
 LABEL maintainer="Hans Zehner <hans[at]dcms.at>"
-LABEL firebirdversion="4.0 Beta 2 (unstable)"
+LABEL firebirdversion="4.0.0"
 
-ARG FBDOWNLOAD=http://web.firebirdsql.org/downloads/prerelease/v40beta2/Firebird-4.0.0.1963-Beta2.tar.xz
+ARG FBDOWNLOAD=https://github.com/FirebirdSQL/firebird/releases/download/v4.0.0/Firebird-4.0.0.2496-0.amd64.tar.gz
 ARG SYSDBAPASSWORD=masterkey
 ENV SYSDBAPASS=${SYSDBAPASSWORD}
 
@@ -15,8 +15,8 @@ RUN apt-get update && \
         procps  \
 	ca-certificates \
 	libtommath-dev \
-	libncurses5 \
-	libicu57 && \
+	libicu63 \
+	libncurses6 && \
     rm -rf /var/lib/apt/lists/* && \
     wget ${FBDOWNLOAD} -P /root && \
     tar -xvf /root/Firebird*.tar.gz  -C /root/ && \

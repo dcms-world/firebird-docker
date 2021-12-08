@@ -109,7 +109,7 @@ services:
       - './firebird3.conf:/opt/firebird/firebird.conf'
 
   fb307:
-    image: 'dcms/firebird-docker:3.0.6'
+    image: 'dcms/firebird-docker:3.0.7'
     restart: always
     ports:
       - '3307:3050'
@@ -120,6 +120,17 @@ services:
     volumes:
       - './firebird3.conf:/opt/firebird/firebird.conf'
 
+  fb308:
+    image: 'dcms/firebird-docker:3.0.8'
+    restart: always
+    ports:
+      - '3308:3050'
+      - '33080:3051'
+    extends:
+      file: base.yml
+      service: base
+    volumes:
+      - './firebird3.conf:/opt/firebird/firebird.conf'
 
   fb400beta1:
     image: 'dcms/firebird-docker:4.0.0Beta1'

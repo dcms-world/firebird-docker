@@ -1,7 +1,7 @@
 version: '2'
 services:
   firebird:
-    image: 'dcms/firebird-docker:3.0.8'
+    image: 'dcms/firebird-docker:3.0.10'
     restart: always
     ports:
       - '3050:3050'

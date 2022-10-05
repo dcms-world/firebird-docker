@@ -1,9 +1,9 @@
-FROM debian:9.13-slim
+FROM debian:10.13-slim
 
 LABEL maintainer="Johann Zehner <hans[at]dcms.at>"
-LABEL firebirdversion="3.0.7"
+LABEL firebirdversion="3.0.8"
 
-ARG FBDOWNLOAD=https://github.com/FirebirdSQL/firebird/releases/download/R3_0_7/Firebird-3.0.7.33374-0.amd64.tar.gz
+ARG FBDOWNLOAD=https://github.com/FirebirdSQL/firebird/releases/download/v3.0.8/Firebird-3.0.8.33535-0.amd64.tar.gz
 ARG SYSDBAPASSWORD=masterkey
 ARG FBPORT=3050
 ARG AUXPORT=3051
@@ -19,15 +19,15 @@ RUN apt-get update && \
     wget \
     procps  \
 	ca-certificates \
-	libtommath-dev \
+	libtommath1 \
 	libncurses5 \
-	libicu57 && \
+	libicu63 && \
     rm -rf /var/lib/apt/lists/* && \
+    ln -sf /usr/lib/x86_64-linux-gnu/libtommath.so.1 /usr/lib/x86_64-linux-gnu/libtommath.so.0 && \
     wget ${FBDOWNLOAD} -P /root && \
     tar -xvf /root/Firebird*.tar.gz  -C /root/ && \
     cd /root/Firebird* && \
     ./install.sh -silent && \
-    ln -sf /usr/lib/x86_64-linux-gnu/libtommath.so.1 /usr/lib/x86_64-linux-gnu/libtommath.so.0 && \
     rm -r /root/Firebird* && \
     apt-get remove -y \
 	wget \
@@ -44,4 +44,4 @@ RUN echo "ServerMode = Super" > /opt/firebird/firebird.conf && \
 
 VOLUME /db
 
-CMD [ "/startup.sh" ]
+CMD [ "./startup.sh" ]

@@ -1,9 +1,9 @@
-FROM debian:10.11-slim
+FROM debian:10.13-slim
 
 LABEL maintainer="Hans Zehner <hans[at]dcms.at>"
-LABEL firebirdversion="4.0.0"
+LABEL firebirdversion="4.0.2"
 
-ARG FBDOWNLOAD=https://github.com/FirebirdSQL/firebird/releases/download/v4.0.0/Firebird-4.0.0.2496-0.amd64.tar.gz
+ARG FBDOWNLOAD=https://github.com/FirebirdSQL/firebird/releases/download/v4.0.2/Firebird-4.0.2.2816-0.amd64.tar.gz
 ARG SYSDBAPASSWORD=masterkey
 ENV SYSDBAPASS=${SYSDBAPASSWORD}
 

@@ -4,13 +4,13 @@
 
 2.5.6, 2.5.7, 2.5.8, 2.5.9
 
-3.0.0, 3.0.3, 3.0.4, 3.0.5, 3.0.6, 3.0.7, 3.0.8
+3.0.0, 3.0.3, 3.0.4, 3.0.5, 3.0.6, 3.0.7, 3.0.8, 3.0.9, 3.0.10
 
-4.0.0
+4.0.0, 4.0.2
 
 ## Example - run a Firebird 4.0.0 Server:
 
- docker run --rm -d -e SYSDBAPASS=somegoodpass -v /docker/firebird-docker/testdb:/db -p 3050:3050 --rm --name firebird4.0.0 dcms/firebird-docker:4.0.0
+ docker run --rm -d -e SYSDBAPASS=somegoodpass -v /docker/firebird-docker/testdb:/db -p 3050:3050 --rm --name firebird4.0.2 dcms/firebird-docker:4.0.2
 
 ## Environment Variables
 ### SYSDBAPASS

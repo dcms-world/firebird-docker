@@ -1,9 +1,9 @@
-FROM debian:10.13-slim
+FROM debian:11.11-slim
 
 LABEL maintainer="Hans Zehner <hans[at]dcms.at>"
-LABEL firebirdversion="4.0.2"
+LABEL firebirdversion="4.0.3"
 
-ARG FBDOWNLOAD=https://github.com/FirebirdSQL/firebird/releases/download/v4.0.2/Firebird-4.0.2.2816-0.amd64.tar.gz
+ARG FBDOWNLOAD=https://github.com/FirebirdSQL/firebird/releases/download/v4.0.3/Firebird-4.0.3.2975-0.amd64.tar.gz
 ARG SYSDBAPASSWORD=masterkey
 ENV SYSDBAPASS=${SYSDBAPASSWORD}
 
@@ -15,7 +15,7 @@ RUN apt-get update && \
         procps  \
 	ca-certificates \
 	libtommath-dev \
-	libicu63 \
+	libicu67 \
 	libncurses6 && \
     rm -rf /var/lib/apt/lists/* && \
     wget ${FBDOWNLOAD} -P /root && \

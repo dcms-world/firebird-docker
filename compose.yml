@@ -1,0 +1,16 @@
+version: '2'
+services:
+  firebird:
+    image: 'firebird:4.0.3'
+    restart: always
+    ports:
+      - '3050:3050'
+      - '3051:3051'
+    environment:
+      - 'SYSDBAPASS=masterkey'
+      - 'FIREBIRD_PORT=3050'
+      - 'REMOTE_AUX_PORT=3051'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+      - '/kunden/GMSTest:/db'

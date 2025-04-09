@@ -1,9 +1,9 @@
-FROM debian:11.11-slim
+FROM debian:12.10-slim
 
 LABEL maintainer="Johann Zehner <hans[at]dcms.at>"
-LABEL firebirdversion="3.0.11"
+LABEL firebirdversion="3.0.12"
 
-ARG FBDOWNLOAD=https://github.com/FirebirdSQL/firebird/releases/download/v3.0.11/Firebird-3.0.11.33703-0.amd64.tar.gz
+ARG FBDOWNLOAD=https://github.com/FirebirdSQL/firebird/releases/download/v3.0.12/Firebird-3.0.12.33787-0.amd64.tar.gz
 ARG SYSDBAPASSWORD=masterkey
 ARG FBPORT=3050
 ARG AUXPORT=3051
@@ -21,7 +21,7 @@ RUN apt-get update && \
 	ca-certificates \
 	libtommath1 \
 	libncurses5 \
-	libicu67 && \
+	libicu72 && \
     rm -rf /var/lib/apt/lists/* && \
     ln -sf /usr/lib/x86_64-linux-gnu/libtommath.so.1 /usr/lib/x86_64-linux-gnu/libtommath.so.0 && \
     wget ${FBDOWNLOAD} -P /root && \

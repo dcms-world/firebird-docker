@@ -1,9 +1,10 @@
 FROM debian:11.11-slim
 
 LABEL maintainer="Johann Zehner <hans[at]dcms.at>"
-LABEL firebirdversion="3.0.12"
+LABEL firebirdversion="3.0.13"
 
-ARG FBDOWNLOAD=https://github.com/FirebirdSQL/firebird/releases/download/v3.0.12/Firebird-3.0.12.33787-0.amd64.tar.gz
+ARG FBDOWNLOAD=https://github.com/FirebirdSQL/firebird/releases/download/v3.0.13/Firebird-3.0.13.33818-0.amd64.tar.gz
+
 ARG SYSDBAPASSWORD=masterkey
 ARG FBPORT=3050
 ARG AUXPORT=3051

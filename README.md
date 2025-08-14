@@ -8,7 +8,7 @@
 
 4.0.0, 4.0.2
 
-## Example - run a Firebird 3.0.7 Server:
+## Example - run a Firebird 3.0.13 Server:
 
  docker run --rm -d -e SYSDBAPASS=somegoodpass -v /docker/firebird-docker/testdb:/db -p 3050:3050 --rm --name firebird3.0.13 dcms/firebird-docker:3.0.13
 

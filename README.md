@@ -1,5 +1,13 @@
 # Docker Firebird Server
 
+## Version-specific documentation
+
+| Firebird | Debian base | Architecture | Docker Hub status |
+| --- | --- | --- | --- |
+| [4.0.7](images/4.0.7/README.md) | 13 (Trixie) | `linux/amd64` | Pending publication |
+
+For new versions, add a row and version-specific instructions. Mark a tag as published only after verifying it on Docker Hub.
+
 #### Firebirdserver Versions:
 
 2.5.6, 2.5.7, 2.5.8, 2.5.9

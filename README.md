@@ -4,6 +4,8 @@
 
 | Firebird | Debian base | Architecture | Docker Hub status |
 | --- | --- | --- | --- |
+| [3.0.1](images/3.0.1/README.md) | 8 (Jessie) | `linux/amd64` | [Published](https://hub.docker.com/r/dcms/firebird-docker/tags?name=3.0.1) |
+| [3.0.2](images/3.0.2/README.md) | 8 (Jessie) | `linux/amd64` | [Published](https://hub.docker.com/r/dcms/firebird-docker/tags?name=3.0.2) |
 | [4.0.1](images/4.0.1/README.md) | 11 (Bullseye) | `linux/amd64` | [Published](https://hub.docker.com/r/dcms/firebird-docker/tags?name=4.0.1) |
 | [4.0.4](images/4.0.4/README.md) | 12 (Bookworm) | `linux/amd64` | [Published](https://hub.docker.com/r/dcms/firebird-docker/tags?name=4.0.4) |
 | [4.0.5](images/4.0.5/README.md) | 12 (Bookworm) | `linux/amd64` | [Published](https://hub.docker.com/r/dcms/firebird-docker/tags?name=4.0.5) |

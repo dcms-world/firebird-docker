@@ -2,7 +2,7 @@
 
 Legacy development image for `linux/amd64` on **Debian 8 (Jessie)**, the Debian Stable release when Firebird 3.0.1 shipped. Do not use in production. The archived upstream binary and Debian dependency packages are checked against pinned SHA-256 digests.
 
-Docker Hub: `dcms/firebird-docker:3.0.1` (publication pending).
+Docker Hub: [`dcms/firebird-docker:3.0.1`](https://hub.docker.com/r/dcms/firebird-docker/tags?name=3.0.1)
 
 From this directory:
 

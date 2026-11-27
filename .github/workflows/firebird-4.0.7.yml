@@ -6,6 +6,7 @@ on:
       - 'images/4.0.*/**'
       - 'images/3.0.1/**'
       - 'images/3.0.2/**'
+      - 'images/3.0.14/**'
   workflow_dispatch:
     inputs:
       publish:
@@ -18,6 +19,11 @@ on:
         default: false
       legacy3:
         description: 'Select the historical Firebird 3.0.1 and 3.0.2 images'
+        type: boolean
+        default: false
+
+      firebird3014:
+        description: 'Select the Firebird 3.0.14 image'
         type: boolean
         default: false
 
@@ -35,7 +41,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: ${{ fromJSON(github.event_name == 'pull_request' && '["3.0.1","3.0.2","4.0.1","4.0.4","4.0.5","4.0.6"]' || inputs.legacy3 && '["3.0.1","3.0.2"]' || inputs.backfill && '["4.0.1","4.0.4","4.0.5","4.0.6"]' || '["4.0.7"]') }}
+        version: ${{ fromJSON(github.event_name == 'pull_request' && '["3.0.1","3.0.2","3.0.14","4.0.1","4.0.4","4.0.5","4.0.6"]' || inputs.firebird3014 && '["3.0.14"]' || inputs.legacy3 && '["3.0.1","3.0.2"]' || inputs.backfill && '["4.0.1","4.0.4","4.0.5","4.0.6"]' || '["4.0.7"]') }}
     env:
       VERSION: ${{ matrix.version }}
       IMAGE: dcms/firebird-docker:${{ matrix.version }}

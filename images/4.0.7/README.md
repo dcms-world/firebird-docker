@@ -2,7 +2,11 @@
 
 Development image on **Debian 13 (Trixie)** for **`linux/amd64`**. It uses the [official Firebird 4.0.7 release](https://github.com/FirebirdSQL/firebird/releases/tag/v4.0.7) and verifies the archive's SHA-256 during the build.
 
-**Docker Hub:** `dcms/firebird-docker:4.0.7` is the intended tag; publication is pending.
+**Docker Hub:** [`dcms/firebird-docker:4.0.7`](https://hub.docker.com/r/dcms/firebird-docker/tags?name=4.0.7)
+
+```sh
+docker pull dcms/firebird-docker:4.0.7
+```
 
 ## Build and test locally
 

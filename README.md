@@ -1,16 +1,23 @@
 # Docker Firebird Server
 
-#### Firebirdserver Versions:
+## Version-specific documentation
 
-2.5.6, 2.5.7, 2.5.8, 2.5.9
+| Firebird | Debian base | Architecture | Docker Hub status |
+| --- | --- | --- | --- |
+| [4.0.7](images/4.0.7/README.md) | 13 (Trixie) | `linux/amd64` | Pending publication |
 
-3.0.0, 3.0.3, 3.0.4, 3.0.5, 3.0.6, 3.0.7, 3.0.8, 3.0.9, 3.0.10, 3.0.11, 3.0.12
+For new versions, add a row and version-specific instructions. Mark a tag as published only after verifying it on Docker Hub.
 
-4.0.0, 4.0.2
+## Example: run Firebird 4.0.7
 
-## Example - run a Firebird 3.0.7 Server:
+From the repository root (Docker Compose v2.20 or later):
 
- docker run --rm -d -e SYSDBAPASS=somegoodpass -v /docker/firebird-docker/testdb:/db -p 3050:3050 --rm --name firebird3.0.7 dcms/firebird-docker:3.0.10
+```sh
+export SYSDBAPASS="$(openssl rand -hex 4)"
+docker compose up --build -d
+```
+
+Compose builds `images/4.0.7`, stores databases in a named volume, and binds its ports to localhost for development. The root `Dockerfile` remains the legacy `3.0.12` build; use Compose or build the version directory explicitly for `4.0.7`.
 
 ## Environment Variables
 ### SYSDBAPASS

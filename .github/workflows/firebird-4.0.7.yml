@@ -1,0 +1,68 @@
+name: Firebird 4.0.7 pilot
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/firebird-4.0.7.yml'
+      - 'images/4.0.7/**'
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Publish the exact version tag to Docker Hub after the SQL test'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dockerhub-firebird-docker-4.0.7
+  cancel-in-progress: false
+
+jobs:
+  build-test-publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      IMAGE: dcms/firebird-docker:4.0.7
+      TAG_URL: https://hub.docker.com/v2/repositories/dcms/firebird-docker/tags/4.0.7
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Build exact version
+        run: docker build --pull --tag "$IMAGE" images/4.0.7
+      - name: Verify SQL over the published container port
+        run: bash images/4.0.7/smoke.sh "$IMAGE"
+      - name: Publish only if the tag does not exist
+        if: github.event_name == 'workflow_dispatch' && inputs.publish && github.ref == 'refs/heads/master' && github.repository == 'dcms-world/firebird-docker'
+        env:
+          DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+          DOCKER_CONFIG: ${{ runner.temp }}/firebird-docker-config
+        run: |
+          set -euo pipefail
+          : "${DOCKERHUB_USERNAME:?Set the Docker Hub username in Actions variables}"
+          : "${DOCKERHUB_TOKEN:?Set the Docker Hub token in Actions secrets}"
+          umask 077
+          mkdir -p "$DOCKER_CONFIG"
+          trap 'docker logout >/dev/null 2>&1 || true' EXIT
+          printf '%s' "$DOCKERHUB_TOKEN" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
+          status=$(curl --silent --show-error --max-time 20 --output /dev/null --write-out '%{http_code}' "$TAG_URL")
+          case "$status" in
+            200) echo 'Exact tag already exists. Nothing published.'; exit 0 ;;
+            404) ;;
+            *) echo "Cannot establish whether the tag exists (HTTP $status)" >&2; exit 1 ;;
+          esac
+          docker push "$IMAGE" | tee "$RUNNER_TEMP/firebird-push.log"
+          expected=$(awk '/digest: sha256:/ { for (i=1;i<NF;i++) if ($i=="digest:") print $(i+1) }' "$RUNNER_TEMP/firebird-push.log")
+          [[ $expected =~ ^sha256:[0-9a-f]{64}$ ]]
+          for attempt in {1..10}; do
+            if actual=$(curl -fsS --max-time 15 "$TAG_URL" | jq -er '.digest'); then
+              [[ $actual == "$expected" ]] || { echo "Digest mismatch: $actual != $expected" >&2; exit 1; }
+              echo "Verified $IMAGE at $actual"
+              exit 0
+            fi
+            sleep 3
+          done
+          echo 'Push returned success, but Docker Hub read-back could not be verified.' >&2
+          exit 1

@@ -155,3 +155,19 @@ services:
       file: base.yml
       service: base
 
+  # Start explicitly after the exact tag has been published.
+  fb407:
+    profiles: [firebird407]
+    image: 'dcms/firebird-docker:4.0.7'
+    platform: linux/amd64
+    environment:
+      SYSDBAPASS: ${SYSDBAPASS:-masterkey}
+    ports:
+      - '127.0.0.1:3407:3050'
+      - '127.0.0.1:34007:3051'
+    volumes:
+      - fb407-data:/db
+
+volumes:
+  fb407-data:
+

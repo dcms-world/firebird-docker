@@ -4,6 +4,8 @@ on:
     paths:
       - '.github/workflows/firebird-4.0.7.yml'
       - 'images/4.0.*/**'
+      - 'images/3.0.1/**'
+      - 'images/3.0.2/**'
   workflow_dispatch:
     inputs:
       publish:
@@ -12,6 +14,10 @@ on:
         default: false
       backfill:
         description: 'Select 4.0.1, 4.0.4, 4.0.5 and 4.0.6 instead of 4.0.7'
+        type: boolean
+        default: false
+      legacy3:
+        description: 'Select the historical Firebird 3.0.1 and 3.0.2 images'
         type: boolean
         default: false
 
@@ -29,7 +35,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: ${{ fromJSON((github.event_name == 'pull_request' || inputs.backfill) && '["4.0.1","4.0.4","4.0.5","4.0.6"]' || '["4.0.7"]') }}
+        version: ${{ fromJSON(github.event_name == 'pull_request' && '["3.0.1","3.0.2","4.0.1","4.0.4","4.0.5","4.0.6"]' || inputs.legacy3 && '["3.0.1","3.0.2"]' || inputs.backfill && '["4.0.1","4.0.4","4.0.5","4.0.6"]' || '["4.0.7"]') }}
     env:
       VERSION: ${{ matrix.version }}
       IMAGE: dcms/firebird-docker:${{ matrix.version }}
@@ -43,7 +49,7 @@ jobs:
       - name: Verify SQL over the published container port
         run: bash "images/$VERSION/smoke.sh" "$IMAGE"
       - name: Publish only if the tag does not exist
-        if: github.event_name == 'workflow_dispatch' && inputs.publish && github.repository == 'dcms-world/firebird-docker' && github.ref == 'refs/heads/master'
+        if: github.event_name == 'workflow_dispatch' && inputs.publish && github.repository == 'dcms-world/firebird-docker' && (github.ref == 'refs/heads/master' || (github.ref == 'refs/heads/release/firebird-3-legacy' && inputs.legacy3))
         env:
           DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}

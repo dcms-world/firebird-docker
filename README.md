@@ -1,55 +1,39 @@
-# Docker Firebird Server
+# Firebird 4.0.7
 
-## Version-specific documentation
+Development image on **Debian 13 (Trixie)** for **`linux/amd64`**. It uses the [official Firebird 4.0.7 release](https://github.com/FirebirdSQL/firebird/releases/tag/v4.0.7) and verifies the archive's SHA-256 during the build.
 
-| Firebird | Debian base | Architecture | Docker Hub status |
-| --- | --- | --- | --- |
-| [4.0.1](images/4.0.1/README.md) | 11 (Bullseye) | `linux/amd64` | [Published](https://hub.docker.com/r/dcms/firebird-docker/tags?name=4.0.1) |
-| [4.0.4](images/4.0.4/README.md) | 12 (Bookworm) | `linux/amd64` | [Published](https://hub.docker.com/r/dcms/firebird-docker/tags?name=4.0.4) |
-| [4.0.5](images/4.0.5/README.md) | 12 (Bookworm) | `linux/amd64` | [Published](https://hub.docker.com/r/dcms/firebird-docker/tags?name=4.0.5) |
-| [4.0.6](images/4.0.6/README.md) | 12 (Bookworm) | `linux/amd64` | [Published](https://hub.docker.com/r/dcms/firebird-docker/tags?name=4.0.6) |
-| [4.0.7](images/4.0.7/README.md) | 13 (Trixie) | `linux/amd64` | [Published](https://hub.docker.com/r/dcms/firebird-docker/tags?name=4.0.7) |
+**Docker Hub:** `dcms/firebird-docker:4.0.7` is [published](https://hub.docker.com/r/dcms/firebird-docker/tags?name=4.0.7).
 
-For new versions, add a row and version-specific instructions. Mark a tag as published only after verifying it on Docker Hub.
+## Build and test locally
 
-Version branches use the exact `X.Y.Z` branch name as the Docker image tag. A new version branch needs its own root `Dockerfile`, `compose.yml`, `startup.sh`, `smoke.sh` and `.github/workflows/version-branch-build.yml`. GitHub Actions checks the Dockerfile version, builds the branch image and verifies the running version over SQL. The branch build does not publish or overwrite Docker Hub tags.
+Run from this directory:
 
-## Example: run Firebird 4.0.7
+```sh
+docker build -t firebird-local:4.0.7 .
+bash smoke.sh firebird-local:4.0.7
+```
 
-From the repository root (Docker Compose v2.20 or later):
+The smoke test connects over a published loopback TCP port, creates a database, checks the engine version and query result, and cleans up the test container.
+
+## Run with Docker Compose
+
+From this directory, use Docker Compose v2.20 or later:
 
 ```sh
 export SYSDBAPASS="$(openssl rand -hex 4)"
 docker compose up --build -d
+docker compose port firebird 3050
 ```
 
-Compose builds `images/4.0.7`, stores databases in a named volume, and binds its ports to localhost for development. The root `Dockerfile` remains the legacy `3.0.12` build; use Compose or build the version directory explicitly for `4.0.7`.
+`FIREBIRD_HOST_PORT` and `FIREBIRD_HOST_AUX_PORT` override the localhost ports (default `3050` and `3051`).
 
-## Environment Variables
-### SYSDBAPASS
-Default password is "masterkey"
-Example:
-				
- -e "SYSDBAPASS=anotherpassword" 
+## Run without Compose
 
+```sh
+SYSDBAPASS=$(openssl rand -hex 4)
+export SYSDBAPASS
+docker run --rm -d --name firebird-4.0.7 -e SYSDBAPASS \
+  -p 127.0.0.1:3050:3050 -v firebird407-data:/db firebird-local:4.0.7
+```
 
-## VOLUMES
-## /db
-To work with databases inside the container and store them permanent outside
-Exmaple:
-
- -v db:/db
- 
-## PORTS
-## 3050
-Default Firebird Port inside the container is 3050, you can set it to another
-Example:
-
- -p 3051:3050
- 
-## Docker-compose
-There is a docker-compose.yml file where you can start more Firebirdservers on different Ports for developing
-
-
-## WARNING 
-### DO NOT USE THIS FOR PRODUCTION - ITS ONLY FOR DEVELOPMENT !!!
+Connect to `127.0.0.1:3050` as `SYSDBA` with the password in `SYSDBAPASS`. Store database files under `/db` to keep them in the named volume. The example only binds to loopback. This image is for development, not production.

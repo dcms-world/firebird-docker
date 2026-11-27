@@ -2,22 +2,22 @@
 
 Development image on **Debian 13 (Trixie)** for **`linux/amd64`**. It uses the [official Firebird 4.0.7 release](https://github.com/FirebirdSQL/firebird/releases/tag/v4.0.7) and verifies the archive's SHA-256 during the build.
 
-**Docker Hub:** `dcms/firebird-docker:4.0.7` is the intended tag; publication is pending.
+**Docker Hub:** `dcms/firebird-docker:4.0.7` is [published](https://hub.docker.com/r/dcms/firebird-docker/tags?name=4.0.7).
 
 ## Build and test locally
 
-Run from the repository root:
+Run from this directory:
 
 ```sh
-docker build -t firebird-local:4.0.7 images/4.0.7
-bash images/4.0.7/smoke.sh firebird-local:4.0.7
+docker build -t firebird-local:4.0.7 .
+bash smoke.sh firebird-local:4.0.7
 ```
 
 The smoke test connects over a published loopback TCP port, creates a database, checks the engine version and query result, and cleans up the test container.
 
 ## Run with Docker Compose
 
-From the repository root, use Docker Compose v2.20 or later:
+From this directory, use Docker Compose v2.20 or later:
 
 ```sh
 export SYSDBAPASS="$(openssl rand -hex 4)"
@@ -25,7 +25,7 @@ docker compose up --build -d
 docker compose port firebird 3050
 ```
 
-Both root Compose entry points use the version-specific `compose.yml` in this directory. `FIREBIRD_HOST_PORT` and `FIREBIRD_HOST_AUX_PORT` override the localhost ports (default `3050` and `3051`). After publication, run only the registry-based example with `docker compose -f docker-compose_sample.yml up -d fb407` (localhost port `3407`).
+`FIREBIRD_HOST_PORT` and `FIREBIRD_HOST_AUX_PORT` override the localhost ports (default `3050` and `3051`).
 
 ## Run without Compose
 

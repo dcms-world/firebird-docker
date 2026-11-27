@@ -1,0 +1,38 @@
+name: Build Firebird version branch
+on:
+  create:
+  push:
+    branches:
+      - '[0-9]+.[0-9]+.[0-9]+'
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    if: github.ref_type == 'branch' && github.repository == 'dcms-world/firebird-docker'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      VERSION: ${{ github.ref_name }}
+    steps:
+      - name: Check for an exact version branch
+        id: version
+        shell: bash
+        run: |
+          if [[ $VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo 'valid=true' >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        if: steps.version.outputs.valid == 'true'
+        with:
+          persist-credentials: false
+      - name: Build and check branch version
+        if: steps.version.outputs.valid == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fx "LABEL firebirdversion=\"$VERSION\"" Dockerfile
+          image="dcms/firebird-docker:$VERSION"
+          docker build --pull --tag "$image" .
+          bash smoke.sh "$image" "$VERSION"

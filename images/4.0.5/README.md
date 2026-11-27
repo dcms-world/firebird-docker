@@ -2,7 +2,11 @@
 
 Development image for `linux/amd64`, based on **Debian 12 (Bookworm)**, the Debian Stable release on 2024-08-08. Uses the [official Firebird package](https://github.com/FirebirdSQL/firebird/releases/tag/v4.0.5) with a pinned SHA-256.
 
-Docker Hub tag `dcms/firebird-docker:4.0.5` — pending publication.
+Docker Hub: [`dcms/firebird-docker:4.0.5`](https://hub.docker.com/r/dcms/firebird-docker/tags?name=4.0.5)
+
+```sh
+docker pull dcms/firebird-docker:4.0.5
+```
 
 ## Build and run
 

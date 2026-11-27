@@ -43,7 +43,7 @@ jobs:
       - name: Verify SQL over the published container port
         run: bash "images/$VERSION/smoke.sh" "$IMAGE"
       - name: Publish only if the tag does not exist
-        if: github.event_name == 'workflow_dispatch' && inputs.publish && github.repository == 'dcms-world/firebird-docker' && (github.ref == 'refs/heads/master' || (github.ref == 'refs/heads/release/firebird-4-backfill' && inputs.backfill))
+        if: github.event_name == 'workflow_dispatch' && inputs.publish && github.repository == 'dcms-world/firebird-docker' && github.ref == 'refs/heads/master'
         env:
           DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}

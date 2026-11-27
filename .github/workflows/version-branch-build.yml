@@ -10,7 +10,8 @@ permissions:
 
 jobs:
   build-and-test:
-    if: github.ref_type == 'branch' && github.repository == 'dcms-world/firebird-docker'
+    # GitHub also emits a push on creation; let the create event handle that case.
+    if: github.ref_type == 'branch' && github.repository == 'dcms-world/firebird-docker' && (github.event_name == 'create' || !github.event.created)
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     env:

@@ -8,9 +8,16 @@
 
 For new versions, add a row and version-specific instructions. Mark a tag as published only after verifying it on Docker Hub.
 
-## Example - run a Firebird 3.0.7 Server:
+## Example: run Firebird 4.0.7
 
- docker run --rm -d -e SYSDBAPASS=somegoodpass -v /docker/firebird-docker/testdb:/db -p 3050:3050 --rm --name firebird3.0.7 dcms/firebird-docker:3.0.10
+From the repository root (Docker Compose v2.20 or later):
+
+```sh
+export SYSDBAPASS="$(openssl rand -hex 4)"
+docker compose up --build -d
+```
+
+Compose builds `images/4.0.7`, stores databases in a named volume, and binds its ports to localhost for development. The root `Dockerfile` remains the legacy `3.0.12` build; use Compose or build the version directory explicitly for `4.0.7`.
 
 ## Environment Variables
 ### SYSDBAPASS

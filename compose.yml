@@ -1,17 +1,3 @@
-version: '2'
-services:
-  firebird:
-    image: 'firebird:3.0.12'
-    restart: always
-    ports:
-      - '3050:3050'
-      - '3051:3051'
-    environment:
-      - 'SYSDBAPASS=masterkey'
-      - 'FIREBIRD_PORT=3050'
-      - 'REMOTE_AUX_PORT=3051'
-    volumes:
-      - '/etc/timezone:/etc/timezone:ro'
-      - '/etc/localtime:/etc/localtime:ro'
-      - '/kunden/GMSTest:/db'
-
+# Default development stack for the new Firebird release.
+include:
+  - images/4.0.7/compose.yml

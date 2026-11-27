@@ -1,3 +1,15 @@
-# Default development stack for the new Firebird release.
-include:
-  - images/4.0.7/compose.yml
+services:
+  firebird:
+    image: firebird-local:5.0.4
+    platform: linux/amd64
+    build: .
+    environment:
+      SYSDBAPASS: ${SYSDBAPASS:?Set SYSDBAPASS for Firebird 5.0.4}
+    ports:
+      - '127.0.0.1:${FIREBIRD_HOST_PORT:-3050}:3050'
+      - '127.0.0.1:${FIREBIRD_HOST_AUX_PORT:-3051}:3051'
+    volumes:
+      - firebird504-data:/db
+
+volumes:
+  firebird504-data:

@@ -1,47 +1,21 @@
-FROM debian:12.10-slim
+# syntax=docker/dockerfile:1
+# Debian dependency checksums are from the signed Jessie archive index.
+FROM scratch AS packages
+ADD --checksum=sha256:bc1c3d5d226adf999404e1c5686e9f7ba3dc381e62eac45c08dfd618ea1148a0 https://downloads.sourceforge.net/project/firebird/firebird-linux-amd64/3.0.2-Release/Firebird-3.0.2.32703-0.amd64.tar.gz /payload/fb.tar.gz
+ADD --checksum=sha256:708d4499e2f6344a77d903c2c03a958f5edac32f9adf5ff3da7b572bf307e980 https://archive.debian.org/debian/pool/main/i/icu/libicu52_52.1-8+deb8u7_amd64.deb /payload/libicu52.deb
+ADD --checksum=sha256:d8d811a523240deb5d12d9418281630bcffa24e21e6a56f50ac877163776f6ac https://archive.debian.org/debian/pool/main/libt/libtommath/libtommath0_0.42.0-1.1_amd64.deb /payload/libtommath0.deb
+ADD --checksum=sha256:3979bdd40c5666ef9bf71a5391ba01ad38e264f2ec96d289993f2a0805616dd3 https://archive.debian.org/debian/pool/main/n/netbase/netbase_5.3_all.deb /payload/netbase.deb
 
-LABEL maintainer="Johann Zehner <hans[at]dcms.at>"
-LABEL firebirdversion="3.0.12"
-
-ARG FBDOWNLOAD=https://github.com/FirebirdSQL/firebird/releases/download/v3.0.12/Firebird-3.0.12.33787-0.amd64.tar.gz
-ARG SYSDBAPASSWORD=masterkey
-ARG FBPORT=3050
-ARG AUXPORT=3051
-
-ENV SYSDBAPASS=${SYSDBAPASSWORD}
-ENV FIREBIRD_PORT=${FBPORT}
-ENV REMOTE_AUX_PORT=${AUXPORT}
-
+FROM debian:8-slim@sha256:b9b0e7354098cbd534861d7532c082fb81cdb4d893303ba1f322f52c9e583cd2
+LABEL firebirdversion="3.0.2"
+ENV SYSDBAPASS=masterkey FIREBIRD_PORT=3050 REMOTE_AUX_PORT=3051
 COPY startup.sh /startup.sh
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    wget \
-    procps  \
-	ca-certificates \
-	libtommath1 \
-	libncurses5 \
-	libicu72 && \
-    rm -rf /var/lib/apt/lists/* && \
-    ln -sf /usr/lib/x86_64-linux-gnu/libtommath.so.1 /usr/lib/x86_64-linux-gnu/libtommath.so.0 && \
-    wget ${FBDOWNLOAD} -P /root && \
-    tar -xvf /root/Firebird*.tar.gz  -C /root/ && \
-    cd /root/Firebird* && \
-    ./install.sh -silent && \
-    rm -r /root/Firebird* && \
-    apt-get remove -y \
-	wget \
-	ca-certificates && \
-    apt-get autoremove -y && \
-    mkdir /db && \
-    chmod +x /startup.sh
-
-RUN echo "ServerMode = Super" > /opt/firebird/firebird.conf && \ 
-    echo "WireCrypt = Disabled" >> /opt/firebird/firebird.conf && \ 
-    echo "AuthServer = Legacy_Auth" >> /opt/firebird/firebird.conf && \ 
-    echo "AuthClient = Legacy_Auth" >> /opt/firebird/firebird.conf && \ 
-    echo "UserManager = Legacy_UserManager" >> /opt/firebird/firebird.conf
-
+RUN --mount=type=bind,from=packages,source=/payload,target=/payload \
+    set -eu; dpkg -i /payload/*.deb; \
+    mkdir -p /tmp/fb /db; tar -xf /payload/fb.tar.gz --strip-components=1 -C /tmp/fb; \
+    cd /tmp/fb; ./install.sh -silent; cd /; rm -rf /tmp/fb; \
+    chmod +x /startup.sh; \
+    printf '\nDatabaseAccess = Full\nServerMode = SuperClassic\nWireCrypt = Enabled\nAuthServer = Legacy_Auth, Srp, Win_Sspi\nUserManager = Legacy_UserManager, Srp\n' >> /opt/firebird/firebird.conf
+EXPOSE 3050 3051
 VOLUME /db
-
-CMD [ "./startup.sh" ]
+CMD ["/startup.sh"]

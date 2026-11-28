@@ -1,0 +1,15 @@
+services:
+  firebird:
+    image: firebird-local:5.0.3
+    platform: linux/amd64
+    build: .
+    environment:
+      SYSDBAPASS: ${SYSDBAPASS:?Set SYSDBAPASS for Firebird 5.0.3}
+    ports:
+      - '127.0.0.1:${FIREBIRD_HOST_PORT:-3050}:3050'
+      - '127.0.0.1:${FIREBIRD_HOST_AUX_PORT:-3051}:3051'
+    volumes:
+      - firebird503-data:/db
+
+volumes:
+  firebird503-data:

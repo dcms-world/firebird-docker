@@ -12,6 +12,7 @@
 | [4.0.5](images/4.0.5/README.md) | 12 (Bookworm) | `linux/amd64` | [Published](https://hub.docker.com/r/dcms/firebird-docker/tags?name=4.0.5) |
 | [4.0.6](images/4.0.6/README.md) | 12 (Bookworm) | `linux/amd64` | [Published](https://hub.docker.com/r/dcms/firebird-docker/tags?name=4.0.6) |
 | [4.0.7](images/4.0.7/README.md) | 13 (Trixie) | `linux/amd64` | [Published](https://hub.docker.com/r/dcms/firebird-docker/tags?name=4.0.7) |
+| [5.0.4](images/5.0.4/README.md) | 13 (Trixie) | `linux/amd64` | [Published](https://hub.docker.com/r/dcms/firebird-docker/tags?name=5.0.4) |
 
 For new versions, add a row and version-specific instructions. Mark a tag as published only after verifying it on Docker Hub.
 

@@ -2,7 +2,7 @@
 
 Development image for `linux/amd64` on **Debian 12 (Bookworm)**. It uses the official [Firebird 5.0.1 package](https://github.com/FirebirdSQL/firebird/releases/tag/v5.0.1), verified during the build using SHA-256. This image uses SRP authentication, not `Legacy_Auth`.
 
-Docker Hub: `dcms/firebird-docker:5.0.1` (publication pending).
+Docker Hub: [`dcms/firebird-docker:5.0.1`](https://hub.docker.com/r/dcms/firebird-docker/tags?name=5.0.1)
 
 From this directory:
 
